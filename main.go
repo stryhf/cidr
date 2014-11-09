@@ -6,7 +6,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"os"
 )
@@ -21,13 +20,17 @@ func netCast(n *net.IPNet) net.IP {
 }
 
 func main() {
+	p := fmt.Println
+	
 	if len(os.Args) < 2 {
-		log.Fatal("missing network")
+		p("cidr: missing network")
+		return
 	}
 
 	_, net, err := net.ParseCIDR(os.Args[1])
 	if err != nil {
-		log.Fatal(err)
+		p(err)
+		return
 	}
 	fmt.Println(" network:", net.IP, netCast(net))
 }
