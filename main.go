@@ -1,5 +1,5 @@
 //
-// cidr: display IP range of specified CIDR block
+// cidr: display network, netmask and broadcast of specified CIDR block
 //
 
 package main
@@ -32,5 +32,5 @@ func main() {
 		p(err)
 		return
 	}
-	fmt.Println(" network:", net.IP, netCast(net))
+	fmt.Printf(" network: %-15s / %s\n          %s\n", net.IP, net.Mask, netCast(net))
 }
