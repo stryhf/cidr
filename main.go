@@ -14,16 +14,16 @@ func netCast(n *net.IPNet) net.IP {
 	b := make(net.IP, net.IPv4len)
 
 	for i := 0; i < 4; i++ {
-		b[i] = n.IP[i] + (0xff ^ n.Mask[i])
+		b[i] = n.IP[i] + ^n.Mask[i]
 	}
 	return b
 }
 
 func main() {
 	p := fmt.Println
-	
+
 	if len(os.Args) < 2 {
-		p("cidr: missing network")
+		p("Usage: cidr <NETWORK>")
 		return
 	}
 
