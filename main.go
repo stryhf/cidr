@@ -19,6 +19,14 @@ func netCast(n *net.IPNet) net.IP {
 	return b
 }
 
+func netMask(m net.IPMask) net.IP {
+	if len(m) == 0 {
+		return nil
+	}
+
+	return net.IPv4(m[0], m[1], m[2], m[3])
+}
+
 func main() {
 	p := fmt.Println
 
@@ -27,10 +35,11 @@ func main() {
 		return
 	}
 
-	_, net, err := net.ParseCIDR(os.Args[1])
-	if err != nil {
-		p(err)
+	_, n, e := net.ParseCIDR(os.Args[1])
+	if e != nil {
+		p(e)
 		return
 	}
-	fmt.Printf(" network: %-15s / %s\n          %s\n", net.IP, net.Mask, netCast(net))
+
+	fmt.Printf(" network: %-15s / %s\n          %-15s / %s\n", n.IP, n.Mask, netCast(n), netMask(n.Mask))
 }
